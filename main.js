@@ -80,7 +80,11 @@
         {
             type: 'folder',
             name: 'lib',
-            children: [],
+            children: [
+                { type: 'file', name: 'mockData.json' },
+                { type: 'file', name: 'userList.json' },
+                { type: 'file', name: 'config.json' },
+            ],
         },
         {
             type: 'folder',
