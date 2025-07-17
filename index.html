@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Folder Tree</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <style>
+            /* --- CSS Reset & Global Styles --- */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Roboto Mono', monospace;
+                background-color: #252526;
+                color: #d4d4d4;
+            }
+
+            .project-title {
+                font-size: 18px;
+                font-weight: bold;
+                color: #fff;
+                padding: 0 4px 8px 4px;
+                border-bottom: 2px solid #37373d;
+                margin-bottom: 8px;
+                letter-spacing: 0.5px;
+            }
+
+            /* --- main container of the tree folder --- */
+            .file-explorer {
+                width: 350px;
+                max-width: 100%;
+                height: 100vh;
+                background-color: #1e1e1e;
+                padding: 20px;
+                overflow-x: auto;
+            }
+
+            /* --- Style of root tree --- */
+            .tree {
+                list-style-type: none;
+                padding-left: 0;
+            }
+
+            /* Styles for sub-lists inside the tree */
+            .tree ul {
+                list-style-type: none;
+                padding-left: 20px; /* Indent for child levels */
+                border-left: 1px solid #37373d; /* Vertical line for tree structure */
+                margin-left: 9px; /* Align with folder/file icons */
+            }
+
+            .tree-item {
+                position: relative;
+            }
+
+            /* --- Style for folder/file --- */
+            .tree-item-content {
+                display: flex;
+                align-items: center;
+                padding: 5px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+            }
+
+            .tree-item-content:hover {
+                background-color: #2a2d2e;
+            }
+
+            /* When an item is choose (highlight) */
+            .tree-item-content.active {
+                background-color: #37373d;
+            }
+
+            /* --- Icons --- */
+            .icon {
+                width: 20px;
+                height: 20px;
+                margin-right: 8px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            svg {
+                width: 16px;
+                height: 16px;
+                fill: currentColor;
+            }
+
+            /* Arrow icon */
+            .folder > .tree-item-content > .icon-arrow {
+                transition: transform 0.2s ease;
+            }
+
+            /* Rotate arrow when folder is opened */
+            .folder.expanded > .tree-item-content > .icon-arrow {
+                transform: rotate(90deg);
+            }
+
+            /* Hide the child items of collapsed folders */
+            .folder.collapsed > ul {
+                display: none;
+            }
+
+            /* --- Context Menu --- */
+            .context-menu {
+                position: absolute;
+                z-index: 10;
+                background-color: #2c2c2c;
+                border: 1px solid #454545;
+                border-radius: 6px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                padding: 5px;
+                width: 150px;
+                /* Position top/left will be added by JS */
+                display: none;
+                pointer-events: auto;
+            }
+
+            /* Show context menu */
+            .context-menu.show {
+                display: block;
+                pointer-events: auto;
+            }
+
+            .context-menu ul {
+                list-style: none;
+            }
+
+            .context-menu li {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+
+                padding: 10px 12px;
+                border-radius: 4px;
+
+                color: #d4d4d4;
+                font-size: 15px;
+                cursor: pointer;
+                transition: background-color 0.18s;
+            }
+
+            .context-menu-icon {
+                width: 18px;
+                font-size: 15px;
+                color: #d4d4d4;
+                flex-shrink: 0;
+                text-align: center;
+            }
+
+            .context-menu li:hover {
+                background-color: #094771;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="file-explorer">
+            <div class="project-title">Tree Folder</div>
+            <!-- Root tree container -->
+            <ul class="tree"></ul>
+            <!-- Context Menu -->
+            <div class="context-menu">
+                <ul>
+                    <li class="context-menu-rename">
+                        <i
+                            class="fa-solid fa-pen-to-square context-menu-icon"
+                        ></i>
+                        Rename
+                    </li>
+                    <li class="context-menu-delete">
+                        <i class="fa-solid fa-trash context-menu-icon"></i>
+                        Delete
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <script src="./main.js"></script>
+    </body>
+</html>
