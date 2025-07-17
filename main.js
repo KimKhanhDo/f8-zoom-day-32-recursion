@@ -111,6 +111,8 @@
 
     document.addEventListener('click', removeContextMenu);
 
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+
     contextMenu.addEventListener('click', (e) => {
         const isRename = e.target.closest('.context-menu-rename');
         const isDelete = e.target.closest('.context-menu-delete');
@@ -231,14 +233,13 @@
 
     // Handle Event Functions
     function handleContextMenu(e) {
+        e.preventDefault();
         const treeNode = e.target.closest('.tree-item-content');
 
         if (!treeNode) {
             contextMenu.classList.remove('show');
             return;
         }
-
-        e.preventDefault();
 
         currentNode = treeNode;
 
